@@ -7,20 +7,20 @@
 
 class Transaction {
 private:
-  Customer *customer;
-  Movie *movie;
   char type;
   char command;
-  vector<Transaction*> transactions;
 
 public:
-  Transaction(Customer *c, Movie *m, char t, char a);
-  Customer *getCustomer();
-  Movie *getMovie();
+  //empty
+  Transaction();
+  //inventory
+  Transaction(char t);
+  //history
+  Transaction(char t, int id);
+  //borrow and return
+  Transaction(char t, int id, char medt, char movt, Media m);
   char getType();
   char getAction();
-  void addTransaction(Transaction *t);
-  void displayHistory();
 };
 #endif
 
