@@ -3,15 +3,14 @@
 #include <iostream>
 #include <vector>
 #include "customer.h"
-#include "movie.h"
+#include "media.h"
 
 class Transaction {
 private:
   char type;
-  char command;
-  int id;
   char medt;
   char movt;
+  int id;
 public:
   //empty
   Transaction();
@@ -24,7 +23,6 @@ public:
   //borrow and return for classic
   Transaction(char t, int id, char medt, char movt, int stock, string director, string title, int year, string actor, int date);
   char getType();
-  char getAction();
   char getMediaType();
   char getMovieType();
   int getId();
