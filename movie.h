@@ -3,21 +3,19 @@
 
 #include <iostream>
 #include <string>
+#include "media.h"
 using namespace std;
 
-class Movie {
-
-private:
-  string title;
-  int stock;
-  bool borrowed;
-
+class Movie : public Media{
 public:
-  Movie(string t, int s);
-  string getTitle();
-  int getStock();
-  int getBorrowed();
-  void setStock(int s);
-  void setBorrowed(int b);
+	explicit Movie(); //default constructor
+	virtual string toMediaString() const; //format the movie string shared by all children (year is different for classics)
+
+protected:
+	void initalizeMovie(const int& movieStock, const string movieDirector, const string& movieTitle, const int movieYear); //used for constuctor var assignment of children classes
+	virtual void readObjFromStream(istream& stream); //virtual function used in operator>> to make reading in objects virtual
+
+	string director;
+	int year;
 };
 #endif
