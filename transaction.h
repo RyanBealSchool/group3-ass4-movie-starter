@@ -4,6 +4,8 @@
 #include <vector>
 #include "customer.h"
 #include "media.h"
+#include "hashtable.h"
+#include "inventory.h"
 
 class Transaction {
 private:
@@ -26,6 +28,10 @@ public:
   char getMediaType();
   char getMovieType();
   int getId();
+  bool validTransaction(char t);
+  bool validTransaction(char t, int id);
+  bool validTransaction(char t, int id, char medt, char movt, int stock, string director, string title, int year);
+  bool validTransaction(char t, int id, char medt, char movt, int stock, string director, string title, int year, string actor, int date);
 };
 #endif
 
