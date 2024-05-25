@@ -3,6 +3,8 @@
         "vector": "cpp",
         "xstring": "cpp",
         "map": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp"
     }
 }

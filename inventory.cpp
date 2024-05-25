@@ -1,15 +1,16 @@
 #include "inventory.h"
 
 void Inventory::addMedia(Media *m) {
-    
+    string key = generateUniqueKey(m);
+    hashTable.add(key, m);
 }
 
 Media *Inventory::getMedia(string title) { 
-    return nullptr; 
+    return hashTable.findMovie(title);
 }
 
 bool Inventory::doesMediaExist(string title) { 
-    return false; 
+    return hashTable.findMovie(title) != nullptr;
 }
 
 int Inventory::indexOfMedia(string title) { 
@@ -22,6 +23,13 @@ void Inventory::printCustomerList() {
     }
 }
 
-string Inventory::toMediaString() { 
-    return string(); 
+void Inventory::printMediaList() { 
+    cout << hashTable.getAllMediaInfo();
 }
+
+string Inventory::generateUniqueKey(Media *m) { 
+    string key = m->toMediaString();
+    return key;
+}
+
+

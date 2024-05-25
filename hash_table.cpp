@@ -23,3 +23,11 @@ int HashTable::hashFunction(int key) {
 int HashTable::getTableSize() { 
     return table.size();
 }
+
+string HashTable::getAllMediaInfo() const {
+    string result;
+    for (const auto &entry : table) {
+        result += entry.second.media->toMediaString() + "\n";
+    }
+    return result;
+}
