@@ -3,6 +3,7 @@
  */
 
 #include <iostream>
+#include "commands.h"
 
 using namespace std;
 
@@ -10,7 +11,11 @@ using namespace std;
 void testAll();
 
 int main() {
-  testAll();
+  Commands c;
+  c.readMoviesFile();
+  // c.readCustomersFile();
+  // c.readCommandsFile();
+
   cout << "Done." << endl;
   return 0;
 }

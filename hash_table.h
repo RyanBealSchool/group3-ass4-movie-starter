@@ -27,6 +27,6 @@ public:
   Media *findMovie(string key);
   int hashFunction(int key);
   int getTableSize();
-  string HashTable::getAllMediaInfo() const;
+  string getAllMediaInfo() const;
 };
 #endif

@@ -6,6 +6,7 @@ HashTable::HashTable() {
 
 bool HashTable::add(const string &key, Media *media) { 
     table[key] = {key, media};
+    return true;
 }
 
 Media *HashTable::findMovie(string key) { 
