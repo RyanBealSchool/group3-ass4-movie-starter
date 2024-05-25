@@ -11,6 +11,29 @@ string Classic::toMediaString() const {
 	return result;
 }
 
+bool Classic::operator<(const Classic& compClassic) const{
+	if(this->month < compClassic.month){
+		return true;
+	}
+	else if ((this->month == compClassic.month) && (this->year < compClassic.year)){
+		return true;
+	}
+	else if((this->month == compClassic.month) && (this->year == compClassic.year) && (this->actor.compare(compClassic.actor) < 0)) {
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+bool Classic::operator==(const Classic& compClassic) const{
+	if((this->month==compClassic.month) && (this->year == compClassic.year) && (this->actor.compare(compClassic.actor) == 0)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 void Classic::readObjFromStream(istream& stream)
 {
 	char skip; //to skip space while reading in

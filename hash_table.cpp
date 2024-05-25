@@ -6,6 +6,7 @@ HashTable::HashTable() {
 
 bool HashTable::add(const string &key, Media *media) { 
     table[key] = {key, media};
+    return true;
 }
 
 Media *HashTable::findMovie(string key) { 
@@ -22,4 +23,12 @@ int HashTable::hashFunction(int key) {
 
 int HashTable::getTableSize() { 
     return table.size();
+}
+
+string HashTable::getAllMediaInfo() const {
+    string result;
+    for (const auto &entry : table) {
+        result += entry.second.media->toMediaString() + "\n";
+    }
+    return result;
 }

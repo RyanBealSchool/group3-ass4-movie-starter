@@ -2,16 +2,41 @@
 
 Comedy::Comedy(int comedyStock, string comedyDirector, string comedyTitle, int comedyYear)
 {
-	initalizeMovie(comedyStock, comedyDirector, comedyTitle, comedyYear); // initalize movie vars
+	 // initalize movie vars
+	initalizeMovie(comedyStock, comedyDirector, comedyTitle, comedyYear);
 }
 string Comedy::toMediaString() const {
-	string result = "F, " + Movie::toMediaString() + ", " + to_string(this->year); //format the comedy as a string
+	//format the comedy as a string
+	string result = "F, " + Movie::toMediaString() + ", " + to_string(this->year); 
 	return result;
+}
+
+bool Comedy::operator<(const Comedy& compCom) const {
+	if (this->title.compare(compCom.title) < 0) {
+		return true;
+	}
+	else if ((this->title.compare(compCom.title) == 0) && (this->year < compCom.year)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+bool Comedy::operator==(const Comedy& compCom) const {
+	if ((this->title.compare(compCom.title) == 0) && (this->year == compCom.year)) {
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 void Comedy::readObjFromStream(istream& stream)
 {
-	Movie::readObjFromStream(stream); //read in the stock, director, and title
-	stream >> year;//read in the year
+	//read in the stock, director, and title
+	Movie::readObjFromStream(stream); 
+	//read in the year
+	stream >> year;
 }
 

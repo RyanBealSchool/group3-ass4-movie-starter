@@ -6,7 +6,7 @@
 #include "media.h"
 using namespace std;
 
-class Movie : public Media{
+class Movie : public Media {
 public:
 	explicit Movie(); //default constructor
 	virtual string toMediaString() const; //format the movie string shared by all children (year is different for classics)

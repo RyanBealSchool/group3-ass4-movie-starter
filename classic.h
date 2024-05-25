@@ -7,6 +7,9 @@ public:
 
 	string toMediaString() const; //returns a string formatted as a classic
 
+	bool operator<(const Classic& compClassic) const; //compare if this Classic is less than the passed in
+	bool operator==(const Classic& compClassic) const; //compare if this Classic is greater than the passed in
+
 private:
 	void readObjFromStream(istream& stream); // read a classic from the stream
 

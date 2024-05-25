@@ -9,6 +9,27 @@ string Drama::toMediaString() const {
 	return result;
 }
 
+bool Drama::operator<(const Drama& compDrama) const{
+	if (this->director.compare(compDrama.director) < 0) {
+		return true;
+	}
+	else if ((this->director.compare(compDrama.director) == 0) && (this->title.compare(compDrama.title) < 0)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+	
+bool Drama::operator==(const Drama& compDrama) const{
+	if ((this->director.compare(compDrama.director) == 0) && (this->title.compare(compDrama.title) == 0)) {
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 void Drama::readObjFromStream(istream& stream)
 {
 	Movie::readObjFromStream(stream); //read in the stock, director, and title

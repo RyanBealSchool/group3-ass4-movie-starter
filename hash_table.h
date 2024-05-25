@@ -5,19 +5,20 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <iostream>
 #include "media.h"
 #include "movie.h"
+#include <iterator>
 using namespace std;
 
 class HashTable {
 private:
   int tableSize;
   struct HashEntry {
-        string key;
-        Media* media;
-    };
-    unordered_map<string, HashEntry> table;
-    //map<int, Movie *> table;
+    string key;
+    Media* media;
+  };
+  unordered_map<string, HashEntry> table;
 
 public:
   HashTable();
@@ -26,5 +27,6 @@ public:
   Media *findMovie(string key);
   int hashFunction(int key);
   int getTableSize();
+  string getAllMediaInfo() const;
 };
 #endif
