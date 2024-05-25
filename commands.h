@@ -4,6 +4,8 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
+
 #include "transaction.h"
 class Commands {
 private:
@@ -11,7 +13,7 @@ private:
 //storing the transactions in a vector so they can be read in more easily
 //transactions are able to be printed using operator overload of Transaction class
 vector<Transaction> transactions;
-
+unordered_map<int, Customer> customers;
 
 public:
   bool readMoviesFile();
