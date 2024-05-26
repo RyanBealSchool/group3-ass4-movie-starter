@@ -3,7 +3,7 @@
 Comedy::Comedy(int comedyStock, string comedyDirector, string comedyTitle, int comedyYear)
 {
 	 // initalize movie vars
-	initalizeMovie(comedyStock, comedyDirector, comedyTitle, comedyYear);
+	initalizeMovie('F', comedyStock, comedyDirector, comedyTitle, comedyYear);
 }
 string Comedy::toMediaString() const {
 	//format the comedy as a string

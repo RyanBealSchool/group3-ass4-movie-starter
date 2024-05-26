@@ -26,14 +26,44 @@ void Media::returnMedia() //return a copy of the media
 	this->stock++;
 }
 
-void Media::initalizeMedia(const int& mediaStock, const string& mediaTitle) //initalize the media variables
+bool Media::operator<(const Media& compMedia) const{
+	if (this->type == 'F') {
+		return false;
+	}
+	else if (compMedia.type == 'F'){
+		return true;
+	}
+	else if (this->type == 'D') {
+		return false;
+	}
+	else if (compMedia.type == 'D'){
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+bool Media::operator==(const Media& compMedia) const{
+	if (this->type == compMedia.type){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+void Media::initalizeMedia(const char& mediaType, const int& mediaStock, const string& mediaTitle) //initalize the media variables
 {
+	this->type = mediaType;
 	this->title = mediaTitle;
 	this->stock = mediaStock;
 }
 
 void Media::readObjFromStream(istream& stream) //media objects should not be read from streams. definition only in place for use as virtual function
 {
+	stream >> type; // read in the movie type
 }
 
 istream& operator>>(istream& stream, Media& inMedia) // read a child object from the passed in stream

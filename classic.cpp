@@ -2,7 +2,7 @@
 
 Classic::Classic(int classicStock, string classicDirector, string classicTitle, string classicActor, int classicMonth, int classicYear)
 {
-	initalizeMovie(classicStock, classicDirector, classicTitle, classicYear); // initalize movie vars
+	initalizeMovie('C', classicStock, classicDirector, classicTitle, classicYear); // initalize movie vars
 	this->actor = classicActor;
 	this->month = classicMonth;
 }
