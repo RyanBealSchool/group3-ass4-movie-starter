@@ -36,6 +36,21 @@ vector<string> tokenize(string line) {
 	return tokens;    
 }
 
+string Commands::combineTokens(vector<string> tokens, int start)
+{
+	string returnValue;
+	while(true)
+	{
+		returnValue += tokens[start];
+		start++;
+		if(tokens[start].back() == ',')
+		{
+			break;
+		}
+	}
+	return returnValue;
+}
+
 bool Commands::validTransaction(vector<string> tokens)
 {
 	if(tokens[0] != "I" || tokens[0] != "H" || tokens[0] != "B" || tokens[0] != "R")
@@ -52,12 +67,29 @@ bool Commands::validTransaction(vector<string> tokens)
     }
     else if(tokens[3] != "D" || tokens[3] != "F" || tokens[3] != "C")
     {
-        return false;
-    }
-	//This is not complete
-    else if (!I.doesMediaExist("tmp"))
-    {
-        return false;
+		if(tokens[3] == "D")
+		{
+			string movieTitle;
+			while(true)
+			{
+				int i = tokens.size() - 1;
+				movieTitle += tokens[i];
+				if(tokens[i - 1].back() == ',')
+				{
+					break;
+				}
+			}
+			return I.doesMediaExist(movieTitle);
+		}
+        if(tokens[3] == "F")
+    	{
+        	string movieTitle = combineTokens(tokens, 4);
+			return I.doesMediaExist(movieTitle);
+    	}
+		if(tokens[3] == "C")
+    	{
+        	//I dont know what to check for
+    	}
     }
 	else
 	{

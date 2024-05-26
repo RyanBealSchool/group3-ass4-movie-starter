@@ -19,6 +19,7 @@ unordered_map<int, vector<Movie*>> customerHistory;
 
 bool validTransaction(vector<string> tokens);
 Transaction createTransaction(vector<string> tokens);
+string combineTokens(vector<string> tokens, int start);
 
 public:
   bool readMoviesFile();
