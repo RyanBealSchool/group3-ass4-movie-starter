@@ -32,3 +32,25 @@ string HashTable::getAllMediaInfo() const {
     }
     return result;
 }
+
+void HashTable::printAllMediaSorted() const {
+    auto compare = [](Media* m1, Media* m2) {
+        Movie* movie1 = dynamic_cast<Movie*>(m1);
+        Movie* movie2 = dynamic_cast<Movie*>(m2);
+        if (movie1 && movie2) {
+            return *movie1 < *movie2;
+        }
+        return false;
+    };
+
+    priority_queue<Media*, vector<Media*>, decltype(compare)> pq(compare);
+
+    for (const auto &entry : table) {
+        pq.push(entry.second.media);
+    }
+
+    while (!pq.empty()) {
+        cout << pq.top()->toMediaString() << endl;
+        pq.pop();
+    }
+}

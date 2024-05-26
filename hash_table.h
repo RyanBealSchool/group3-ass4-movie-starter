@@ -9,6 +9,7 @@
 #include "media.h"
 #include "movie.h"
 #include <iterator>
+#include <queue>
 using namespace std;
 
 class HashTable {
@@ -28,5 +29,6 @@ public:
   int hashFunction(int key);
   int getTableSize();
   string getAllMediaInfo() const;
+  void printAllMediaSorted() const;
 };
 #endif

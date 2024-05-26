@@ -1,6 +1,10 @@
 #include "inventory.h"
 
 void Inventory::addMedia(Media *m) {
+    Movie *movie = dynamic_cast<Movie*>(m);
+    if (movie) {
+        sortedMovies.push(*movie);
+    }
     string key = generateUniqueKey(m);
     hashTable.add(key, m);
 }
@@ -24,7 +28,8 @@ void Inventory::printCustomerList() {
 }
 
 void Inventory::printMediaList() { 
-    cout << hashTable.getAllMediaInfo();
+    //cout << hashTable.getAllMediaInfo();
+    hashTable.printAllMediaSorted();
 }
 
 string Inventory::generateUniqueKey(Media *m) { 

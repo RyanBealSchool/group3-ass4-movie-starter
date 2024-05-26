@@ -16,6 +16,7 @@ private:
   //priority_queue<Media> sortedMovies;
   HashTable hashTable;
   vector<Customer> customers;
+  priority_queue<Movie> sortedMovies;
   string generateUniqueKey(Media *m);
 
 public:
