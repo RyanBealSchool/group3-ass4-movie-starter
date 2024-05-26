@@ -7,8 +7,35 @@ Movie::Movie()
 }
 
 string Movie::toMediaString() const {
-	string result = to_string(this->stock) + ", " + this->director + ", " + this->title; //add the stoc, director, and title to the string
+	string result = type + ", " + to_string(this->stock) + ", " + this->director + ", " + this->title; //add the stoc, director, and title to the string
 	return result;
+}
+
+bool Movie::operator<(const Movie& compMovie) const{
+	if (this->type == 'F') {
+		return false;
+	}
+	else if (compMovie.type == 'F'){
+		return true;
+	}
+	else if (this->type == 'D') {
+		return false;
+	}
+	else if (compMovie.type == 'D'){
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+bool Movie::operator==(const Movie& compMovie) const{
+	if (this->type == compMovie.type){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 void Movie::initalizeMovie(const int& movieStock, const string movieDirector, const string& movieTitle, const int movieYear)
@@ -21,6 +48,7 @@ void Movie::initalizeMovie(const int& movieStock, const string movieDirector, co
 void Movie::readObjFromStream(istream& stream)
 {
 	char skip; //to skip space while reading in
+	stream >> type; // read in the movie type
 	stream >> stock; //read in the stock
 	stream >> skip;
 	stream >> skip;

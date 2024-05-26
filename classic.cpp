@@ -7,7 +7,7 @@ Classic::Classic(int classicStock, string classicDirector, string classicTitle, 
 	this->month = classicMonth;
 }
 string Classic::toMediaString() const {
-	string result = "C, " + Movie::toMediaString() + ", " + this->actor +" " + to_string(this->month) + " " + to_string(this->year); //format the classic as a string
+	string result = Movie::toMediaString() + ", " + this->actor +" " + to_string(this->month) + " " + to_string(this->year); //format the classic as a string
 	return result;
 }
 

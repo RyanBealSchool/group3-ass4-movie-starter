@@ -5,7 +5,7 @@ Drama::Drama(int dramaStock, string dramaDirector, string dramaTitle, int dramaY
 	initalizeMovie(dramaStock, dramaDirector, dramaTitle, dramaYear); // initalize movie vars
 }
 string Drama::toMediaString() const {
-	string result = "D, " + Movie::toMediaString() + ", " + to_string(this->year); //format the drama as a string
+	string result = Movie::toMediaString() + ", " + to_string(this->year); //format the drama as a string
 	return result;
 }
 

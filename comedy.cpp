@@ -7,7 +7,7 @@ Comedy::Comedy(int comedyStock, string comedyDirector, string comedyTitle, int c
 }
 string Comedy::toMediaString() const {
 	//format the comedy as a string
-	string result = "F, " + Movie::toMediaString() + ", " + to_string(this->year); 
+	string result = Movie::toMediaString() + ", " + to_string(this->year); 
 	return result;
 }
 
