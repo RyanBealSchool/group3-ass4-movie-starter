@@ -91,10 +91,7 @@ bool Commands::validTransaction(vector<string> tokens)
         	//I dont know what to check for
     	}
     }
-	else
-	{
-		return true;
-	}
+	return true;
 }
 
 Transaction Commands::createTransaction(vector<string> tokens)
@@ -131,6 +128,8 @@ Transaction Commands::createTransaction(vector<string> tokens)
 		Transaction* t = new Transaction();
         return *t;
     }
+	Transaction* t = new Transaction();
+	return *t;
 }
 
 bool Commands::readCustomersFile() { 
@@ -165,6 +164,7 @@ bool Commands::readCommandsFile() {
 			}
 		}
 	}
+	return true;
 }
 
 
