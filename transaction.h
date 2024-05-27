@@ -4,7 +4,7 @@
 #include <vector>
 #include "customer.h"
 #include "media.h"
-#include "hashtable.h"
+#include "hash_table.h"
 #include "inventory.h"
 
 class Transaction {
