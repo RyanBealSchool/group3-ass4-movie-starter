@@ -2,26 +2,26 @@
 
 Transaction::Transaction()
 {
-    type = ' ';
+    type = "";
     id = -1;
-    medt = ' ';
-    movt = ' ';
+    medt = "";
+    movt = "";
 }
 
 Transaction::Transaction(string t)
 {
     type = t;
     id = -1;
-    medt = ' ';
-    movt = ' ';
+    medt = "";
+    movt = "";
 }
 
 Transaction::Transaction(string t, int id)
 {
     type = t;
     this->id = id;
-    medt = ' ';
-    movt = ' ';
+    medt = "";
+    movt = "";
 }
 
 Transaction::Transaction(string t, int id, string medt, string movt, int stock, string director, string title, int year)

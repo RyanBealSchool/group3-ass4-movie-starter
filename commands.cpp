@@ -105,12 +105,15 @@ bool Commands::validTransaction(vector<string> tokens) {
 			i--;
 		}
 		movieTitle = movieTitle.substr(0, movieTitle.length() - 1);
-		return I.doesMediaExist(" " + movieTitle);
+		cout << movieTitle << endl;
+		cout << movieTitle.size() << endl;
+		I.printMediaList();
+		return I.doesMediaExist(movieTitle);
 	} 
 
 	if (tokens[3] == "F") {
 		string movieTitle = combineTokens(tokens, 4);
-		// return I.doesMediaExist(movieTitle);
+		// TODO (uncomment) return I.doesMediaExist(movieTitle);
 		return true;
 	}
 
@@ -123,37 +126,51 @@ bool Commands::validTransaction(vector<string> tokens) {
 }
 
 Transaction* Commands::createTransaction(vector<string> tokens) {
-	// if(tokens[0] == "I") {
-	// 	Transaction* t = new Transaction(tokens[0]);
-    //     return t;
-    // }
-	// if(tokens[0] == "H")
-    // {
-	// 	Transaction* t = new Transaction(tokens[0], stoi(tokens[1]));
-    //     return t;
-    // }
+	if(tokens[0] == "I") {
+		Transaction* t = new Transaction(tokens[0]);
+        return t;
+    }
+	if(tokens[0] == "H")
+    {
+		Transaction* t = new Transaction(tokens[0], stoi(tokens[1]));
+        return t;
+    }
 
-	// //incomplete past here
-	// if(tokens[0] == "B" && tokens[3] != "C")
-    // {
-	// 	Transaction* t = new Transaction();
-    //     return t;
-    // }
-	// if(tokens[0] == "R" && tokens[3] != "C")
-    // {
-	// 	Transaction* t = new Transaction();
-    //     return t;
-    // }
-	// if(tokens[0] == "B" && tokens[3] == "C")
-    // {
-	// 	Transaction* t = new Transaction();
-    //     return t;
-    // }
-	// if(tokens[0] == "R" && tokens[3] == "C")
-    // {
-	// 	Transaction* t = new Transaction();
-    //     return t;
-    // }
+	if (tokens[3] != "C") {
+		// non-classic borrow/return
+		string movieTitle;
+		Movie* m;
+		if (tokens[3] == "F") {
+			// it's a funny movie.
+			movieTitle = combineTokens(tokens, 4);
+		} else if (tokens[3] == "D") {
+			// it's a drama movie
+			int i = tokens.size() - 1;
+			movieTitle += tokens[i];
+			i--;
+			while (i >= 0 && tokens[i].back() != ',') {
+				string tmp = tokens[i] + " " + movieTitle;
+				movieTitle = tmp;
+				i--;
+			}
+		} else {
+			return nullptr;
+		}
+
+		// TODO uncomment this as well for it to work after finding things works as expected. 
+		// m = (Movie*) I.getMedia(movieTitle);
+		// Transaction* t = new Transaction(
+		// 	tokens[0], 
+		// 	stoi(tokens[1]), 
+		// 	tokens[2], 
+		// 	tokens[3],
+		// 	m->getStock(), 
+		// 	m->getDirector(),
+		// 	m->getTitle(),
+		// 	m->getYear());
+		return nullptr;
+	} 
+
 	return nullptr;
 }
 
@@ -178,7 +195,6 @@ bool Commands::readCustomersFile() {
 bool Commands::readCommandsFile() { 
 	// assuming that the movies files is always data4commands.txt
 	ifstream file;
-	int i = 0;
 	file.open("data4commands.txt");
 	if (file.is_open()) {
 		string line;
@@ -186,9 +202,10 @@ bool Commands::readCommandsFile() {
 			// line.erase(remove(line.begin(), line.end(), ','), line.end());
 			vector<string> tokens = tokenize(line);
 			if(validTransaction(tokens)) {
-				// cout << "valid transaction" << endl;
-				transactions[i] = createTransaction(tokens);
-				i++;
+				cout << "the following transaction is valid: " << endl;
+				printTokens(tokens);
+				// printTokens(tokens);
+				transactions.push_back(createTransaction(tokens));
 			} else {
 				cout << "invalid transaction: " << line << endl;
 			}

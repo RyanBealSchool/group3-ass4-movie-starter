@@ -11,6 +11,11 @@ public:
 	virtual string toMediaString() const = 0; //get the media as a string (formatted by children)
 
 	string getTitle() const;
+	
+	int getStock() {
+		return stock;
+	}
+
 
 	virtual bool operator<(const Media& compMedia) const; //compare if this media is less than the passed in
 	virtual bool operator==(const Media& compMedia) const; //compare if this media is greater than the passed in
