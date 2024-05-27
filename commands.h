@@ -12,13 +12,13 @@ class Commands {
 private:
 
 //storing the transactions in a vector so they can be read in more easily
-vector<Transaction> transactions;
+vector<Transaction*> transactions;
 unordered_map<int, Customer*> customers;
 Inventory I;
 unordered_map<int, vector<Movie*>> customerHistory;
 
 bool validTransaction(vector<string> tokens);
-Transaction createTransaction(vector<string> tokens);
+Transaction* createTransaction(vector<string> tokens);
 string combineTokens(vector<string> tokens, int start);
 
 public:
