@@ -40,9 +40,8 @@ void Classic::readObjFromStream(istream& stream)
 	string actorLastName;
 	Movie::readObjFromStream(stream); //read in the stock, director, and title
 	stream >> skip;
-	stream >> skip;
 	std::getline(stream, this->actor, ' '); //read in the actor first name
-	stream >> skip;
+	// stream >> skip;
 	std::getline(stream, actorLastName, ' '); //read in the actor last name
 	this->actor += " " + actorLastName;
 	stream >> month; //read in the month

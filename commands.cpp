@@ -3,6 +3,8 @@
 #include <iterator>
 #include "commands.h"
 #include "comedy.h"
+#include "drama.h"
+#include "classic.h"
 
 bool Commands::readMoviesFile() {
 	// assuming that the movies files is always data4movies.txt
@@ -11,14 +13,22 @@ bool Commands::readMoviesFile() {
 	if (file.is_open()) {
 		string line;
 		while (getline(file, line)) {
-			stringstream lstream(line.substr(3));
-			cout << line.substr(3) << endl;
+			stringstream lstream(line);
 			if (line[0] == 'F') {
-				// Comedy *c = new Comedy();
-				// lstream >> *c;
+				Comedy *c = new Comedy();
+				lstream >> *c;
+				// DONE can create comedy movies correctly!
 			} else if (line[0] == 'D') {
-
+				Drama *d = new Drama();
+				lstream >> *d;
+				cout << d->toMediaString() << endl;
 			} else if (line[0] == 'C') {
+				cout << "=========line=========" << endl;
+				cout << line << endl;
+				cout << "======================" << endl;
+				Classic *c = new Classic();
+				lstream >> *c;
+				cout << c->toMediaString() << endl;
 
 			} else {
 				cout << "invalid code: " << line[0] << endl;

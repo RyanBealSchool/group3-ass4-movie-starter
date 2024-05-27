@@ -7,7 +7,7 @@ Movie::Movie()
 }
 
 string Movie::toMediaString() const {
-	string result = type + ", " + to_string(this->stock) + ", " + this->director + ", " + this->title; //add the stoc, director, and title to the string
+	string result = string() + type + ", " + to_string(this->stock) + "," + this->director + ", " + this->title; //add the stoc, director, and title to the string
 	return result;
 }
 
@@ -22,11 +22,9 @@ void Movie::readObjFromStream(istream& stream)
 {
 	char skip; //to skip space while reading in
 	Media::readObjFromStream(stream);
+	stream >> skip;
 	stream >> stock; //read in the stock
 	stream >> skip;
-	stream >> skip;
 	std::getline(stream, director, ','); //read in the director
-	stream >> skip;
-	stream >> skip;
 	std::getline(stream, title, ','); //read in the title
 }
