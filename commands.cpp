@@ -14,22 +14,22 @@ bool Commands::readMoviesFile() {
 		string line;
 		while (getline(file, line)) {
 			stringstream lstream(line);
+			Media *m;
 			if (line[0] == 'F') {
 				Comedy *c = new Comedy();
 				lstream >> *c;
-				// DONE can create comedy movies correctly!
+				m = c;
+				this->I.addMedia(m);
 			} else if (line[0] == 'D') {
 				Drama *d = new Drama();
 				lstream >> *d;
-				cout << d->toMediaString() << endl;
+				m = d;
+				this->I.addMedia(m);
 			} else if (line[0] == 'C') {
-				cout << "=========line=========" << endl;
-				cout << line << endl;
-				cout << "======================" << endl;
 				Classic *c = new Classic();
 				lstream >> *c;
-				cout << c->toMediaString() << endl;
-
+				m = c;
+				this->I.addMedia(m);
 			} else {
 				cout << "invalid code: " << line[0] << endl;
 			}

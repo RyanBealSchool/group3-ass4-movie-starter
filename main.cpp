@@ -13,8 +13,8 @@ void testAll();
 int main() {
   Commands c;
   c.readMoviesFile();
-  // c.readCustomersFile();
-  // c.readCommandsFile();
+  c.readCustomersFile();
+  c.readCommandsFile();
 
   cout << "Done." << endl;
   return 0;
