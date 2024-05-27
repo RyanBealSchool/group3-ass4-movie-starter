@@ -10,6 +10,8 @@ public:
 	void returnMedia(); //return the media
 	virtual string toMediaString() const = 0; //get the media as a string (formatted by children)
 
+	string getTitle() const;
+
 	virtual bool operator<(const Media& compMedia) const; //compare if this media is less than the passed in
 	virtual bool operator==(const Media& compMedia) const; //compare if this media is greater than the passed in
 	friend istream& operator>>(istream& stream, Media &inMedia); //read in a media from the stream

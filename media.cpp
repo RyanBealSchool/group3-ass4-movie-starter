@@ -26,6 +26,10 @@ void Media::returnMedia() //return a copy of the media
 	this->stock++;
 }
 
+string Media::getTitle() const{
+	return this->title;
+}
+
 bool Media::operator<(const Media& compMedia) const{
 	if (this->type == 'F') {
 		return false;
