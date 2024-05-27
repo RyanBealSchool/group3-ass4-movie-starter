@@ -98,7 +98,9 @@ bool Commands::validTransaction(vector<string> tokens)
     	}
 		if(tokens[3] == "C")
     	{
-        	//I dont know what to check for
+        	string movieTitle = tokens[tokens.size() - 1] + tokens[tokens.size() - 1];
+			//If this doesn't work the actor would need to be checked for somehow
+			return I.doesMediaExist(movieTitle);
     	}
     }
 	return true;
