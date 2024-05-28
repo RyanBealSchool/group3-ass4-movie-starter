@@ -66,63 +66,55 @@ void printTokens(vector<string> tkns) {
 
 bool Commands::validTransaction(vector<string> tokens) {
 	if (tokens.size() == 1 && tokens[0] == "I") {
-		return true;
+    	return true;
 	}
 
-	if ((tokens[0] != "H" && tokens[0] != "B" && tokens[0] != "R")) {
-		cout << "invalid command code: " << tokens[0] << endl;
-		return false;
+  	if ((tokens[0] != "H" && tokens[0] != "B" && tokens[0] != "R")) {
+    	cout << "Invalid command code: " << tokens[0] << endl;
+    	return false;
+  	}
+
+  	if (customers.find(stoi(tokens[1])) == customers.end()) {
+    	cout << "Customer with ID = " << tokens[1] << " does not exist" << endl;
+    	return false;
+  	}
+
+  	if (tokens[0] == "H" && tokens.size() == 2) {
+    	return true;
 	}
 
-	if (customers[stoi(tokens[1])] == nullptr) {
-		cout << "customer with id = " << tokens[1] << " does not exist" << endl;
-		return false;
-	}
+  	if (tokens[2] != "D") {
+    	cout << "Invalid media type: " << tokens[2] << endl;
+    	return false;
+  	}	
 
-	if (tokens[0] == "H" && tokens.size() == 2) {
-		return true;
-	}
+  	if ((tokens[3] != "D" && tokens[3] != "F" && tokens[3] != "C")) {
+    	cout << "Unsupported movie type: " << tokens[3] << endl;
+    	return false;
+  	}	
 
-	if (tokens[2] != "D") {
-		cout << "invalid media type: " << tokens[2] << endl;
-		return false;
-	}
+	Media *media = nullptr;
+  	if (tokens[3] == "D") {
+    	string director = combineTokens(tokens, 4);
+    	string title = combineTokens(tokens, 5);
+    	media = new Drama(0, director, title, 0);
+  	} else if (tokens[3] == "F") {
+    	string title = combineTokens(tokens, 4);
+    	int year = stoi(tokens.back());
+    	media = new Comedy(0, "", title, year);
+  	} else if (tokens[3] == "C") {
+    	string actor = combineTokens(tokens, 4);
+    	int month = stoi(tokens[5]);
+    	int year = stoi(tokens[6]);
+    	media = new Classic(0, "", "", actor, month, year);
+  	}
 
-	if ((tokens[3] != "D" && tokens[3] != "F" && tokens[3] != "C")) {
-		cout << "unsupported movie type: " << tokens[3] << endl;
-		return false;
-	}
-
-	if (tokens[3] == "D") {
-		// it's a drama film
-		string movieTitle;
-		int i = tokens.size() - 1;
-		movieTitle += tokens[i];
-		i--;
-		while (i >= 0 && tokens[i].back() != ',') {
-			string tmp = tokens[i] + " " + movieTitle;
-			movieTitle = tmp;
-			i--;
-		}
-		movieTitle = movieTitle.substr(0, movieTitle.length() - 1);
-		cout << movieTitle << endl;
-		cout << movieTitle.size() << endl;
-		I.printMediaList();
-		return I.doesMediaExist(movieTitle);
-	} 
-
-	if (tokens[3] == "F") {
-		string movieTitle = combineTokens(tokens, 4);
-		// TODO (uncomment) return I.doesMediaExist(movieTitle);
-		return true;
-	}
-
-	if (tokens[3] == "C") {
-		// TODO: need a way to check the actor.
-		return true;
-	}
-	
-	return false;
+  	if (media) {
+    	bool mediaExists = I.doesMediaExist(media);
+    	delete media;
+    	return mediaExists;
+  	}
+  return false;
 }
 
 Transaction* Commands::createTransaction(vector<string> tokens) {
