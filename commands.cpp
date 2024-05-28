@@ -187,7 +187,6 @@ bool Commands::readCustomersFile() {
 			this->customers[id] = c;
 		}
 	}
-
 	return true; 
 }
 
@@ -212,4 +211,66 @@ bool Commands::readCommandsFile() {
 		}
 	}
 	return true;
+}
+
+void Commands::excecute(Transaction* t)
+{
+	if(t->getType() == "I")
+	{
+		I.printMediaList();
+	}
+	else if(t->getType() == "H")
+	{
+		for(auto x : customerHistory)
+		{
+			if(x.first == t->getId())
+			{
+				for(int i = 0; i < x.second.size(); i++)
+				{
+					cout << x.second[i] << endl;
+				}
+			}
+		}
+	}
+	else if(t->getType() == "B")
+	{
+		Media* m = I.getMedia(t->getMovieTitle());
+		m->borrowMedia();
+		if(customerHistory.count(t->getId()))
+		{
+			customerHistory.at(t->getId()).push_back(m);
+		}
+		else
+		{
+			customerHistory.emplace(t->getId(), vector<Media*>());
+			customerHistory.at(t->getId()).push_back(m);
+		}
+		
+	}
+	else if(t->getType() == "R")
+	{
+		Media* m = I.getMedia(t->getMovieTitle());
+		m->returnMedia();
+		if(customerHistory.count(t->getId()))
+		{
+			customerHistory.at(t->getId()).push_back(m);
+		}
+		else
+		{
+			customerHistory.emplace(t->getId(), vector<Media*>());
+			customerHistory.at(t->getId()).push_back(m);
+		}
+	}
+	else
+	{
+		return;
+	}		
+}
+
+void Commands::executeTransactions()
+{
+	for(int i = 0; i < this->transactions.size(); i++)
+	{
+		excecute(transactions[i]);
+	}
 }

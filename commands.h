@@ -15,7 +15,7 @@ private:
 vector<Transaction*> transactions;
 unordered_map<int, Customer*> customers;
 Inventory I;
-unordered_map<int, vector<Movie*>> customerHistory;
+unordered_map<int, vector<Media*>> customerHistory;
 
 bool validTransaction(vector<string> tokens);
 Transaction* createTransaction(vector<string> tokens);
@@ -25,4 +25,6 @@ public:
   bool readMoviesFile();
   bool readCustomersFile();
   bool readCommandsFile();
+  void excecute(Transaction* t);
+  void executeTransactions();
 };

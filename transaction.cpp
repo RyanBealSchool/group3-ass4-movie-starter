@@ -6,6 +6,10 @@ Transaction::Transaction()
     id = -1;
     medt = "";
     movt = "";
+    this->title = "";
+    this->director = "";
+    this->year = "";
+    this->actor = "";
 }
 
 Transaction::Transaction(string t)
@@ -14,6 +18,10 @@ Transaction::Transaction(string t)
     id = -1;
     medt = "";
     movt = "";
+    this->title = "";
+    this->director = "";
+    this->year = "";
+    this->actor = "";
 }
 
 Transaction::Transaction(string t, int id)
@@ -22,6 +30,10 @@ Transaction::Transaction(string t, int id)
     this->id = id;
     medt = "";
     movt = "";
+    this->title = "";
+    this->director = "";
+    this->year = "";
+    this->actor = "";
 }
 
 Transaction::Transaction(string t, int id, string medt, string movt, int stock, string director, string title, int year)
@@ -30,15 +42,22 @@ Transaction::Transaction(string t, int id, string medt, string movt, int stock, 
     this->id = id;
     this->medt = medt;
     this->movt = movt;
-    
+    this->title = title;
+    this->director = director;
+    this->year = year;
+    this->actor = actor;
 }
 
-Transaction::Transaction(string t, int id, string medt, string movt, int stock, string director, string title, int year, string actor, int date)
+Transaction::Transaction(string t, int id, string medt, string movt, int stock, string director, string actor, int year, string c)
 {
     type = t;
     id = id;
     this->medt = medt;
     this->movt = movt;
+    this->title = title;
+    this->director = director;
+    this->year = year;
+    this->actor = actor;
 }
 
 string Transaction::getType()
@@ -59,4 +78,9 @@ string Transaction::getMovieType()
 int Transaction::getId()
 {
     return id;
+}
+
+string Transaction::getMovieTitle()
+{
+    return this->title;
 }

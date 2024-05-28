@@ -15,7 +15,7 @@ int main() {
   c.readMoviesFile();
   c.readCustomersFile();
   c.readCommandsFile();
-
+  c.executeTransactions();
   cout << "Done." << endl;
   return 0;
 }
