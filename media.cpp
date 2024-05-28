@@ -30,6 +30,10 @@ string Media::getTitle() const{
 	return this->title;
 }
 
+string Media::getMediaID() const{
+	return hashTableLookUpID;
+}
+
 bool Media::operator<(const Media& compMedia) const{
 	if (this->type == 'F') {
 		return false;

@@ -6,6 +6,7 @@ Classic::Classic(int classicStock, string classicDirector, string classicTitle,
                  classicYear); // initalize movie vars
   this->actor = classicActor;
   this->month = classicMonth;
+  hashTableLookUpID = to_string(this->month) + to_string(this->year) + this->actor;
 }
 string Classic::toMediaString() const {
   string result = Movie::toMediaString() + ", " + this->actor + " " +

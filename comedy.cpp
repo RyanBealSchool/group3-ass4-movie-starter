@@ -4,6 +4,7 @@ Comedy::Comedy(int comedyStock, string comedyDirector, string comedyTitle, int c
 {
 	 // initalize movie vars
 	initalizeMovie('F', comedyStock, comedyDirector, comedyTitle, comedyYear);
+	hashTableLookUpID = this->title + to_string(this->year);
 }
 string Comedy::toMediaString() const {
 	//format the comedy as a string

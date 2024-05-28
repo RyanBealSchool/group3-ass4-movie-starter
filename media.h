@@ -11,6 +11,14 @@ protected:
 	string title; // the name of the media
 	char type; //the type of media
 	int stock; // the current stock of the media
+	string hashTableLookUpID; //Id used to search Hash table
+	/*
+	* Media hashTableLookUpID key (no spaces except between the words in a title and first and last name):
+	* Comedy: titleYear
+	* Drama: directorTitle
+	* Classic: monthYearActor
+	*/
+
 public:
 	explicit Media(); //default constructor
 	bool borrowMedia(); //borrow the media (true:stock was taken | false:there was no more stock)
@@ -18,6 +26,7 @@ public:
 	virtual string toMediaString() const = 0; //get the media as a string (formatted by children)
 
 	string getTitle() const;
+	string getMediaID() const;
 	
 	int getStock() {
 		return stock;

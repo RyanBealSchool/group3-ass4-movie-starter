@@ -13,7 +13,6 @@ protected:
 
 	string director;
 	int year;
-	
 public:
 	explicit Movie(); //default constructor
 	virtual string toMediaString() const; //format the movie string shared by all children (year is different for classics)
