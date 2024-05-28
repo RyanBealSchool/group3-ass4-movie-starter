@@ -29,13 +29,6 @@ bool Customer::hasMovie(string title) {
 
 bool Customer::borrowMovie(string title) {
 
-    for(int i = 0; i < history.size(); i++)
-    {
-        if(history[i].second == title)
-        {
-            return false;
-        }
-    }
     history.push_back(make_pair('B', title));
     return true;
 }

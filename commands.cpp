@@ -95,16 +95,16 @@ bool Commands::validTransaction(vector<string> tokens) {
   	if (tokens[3] == "D") {
     	string director = combineTokens(tokens, 4);
     	string title = combineTokens(tokens, 5);
-    	media = new Drama(0, director, title, 0);
+    	media = new Drama(1, director, title, 0);
   	} else if (tokens[3] == "F") {
     	string title = combineTokens(tokens, 4);
     	int year = stoi(tokens.back());
-    	media = new Comedy(0, "", title, year);
+    	media = new Comedy(1, "", title, year);
   	} else if (tokens[3] == "C") {
     	string actor = combineTokens(tokens, 4);
     	int month = stoi(tokens[4]);
     	int year = stoi(tokens[5]);
-    	media = new Classic(0, "", "", actor, month, year);
+    	media = new Classic(1, "", "", actor, month, year);
   	}
 
   	if (media) {
@@ -222,10 +222,7 @@ void Commands::excecute(Transaction* t)
 	}
 	else if(t->getType() == "B")
 	{
-		if(customers.at(t->getId())->borrowMovie(t->getMovieTitle()))
-		{
-			
-		}
+		customers.at(t->getId())->borrowMovie(t->getMovieTitle());
 		
 		//add borrowing from hashtable
 	}
