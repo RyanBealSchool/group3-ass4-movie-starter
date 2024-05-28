@@ -19,8 +19,8 @@ string Customer::getFirstName() {
 }
 
 bool Customer::hasMovie(string title) {
-    for (int i = 0; i <= borrowedMovies.size(); i++) {
-        if (borrowedMovies[i] == title) {
+    for (int i = 0; i <= history.size(); i++) {
+        if (history[i].second == title) {
             return true;
         }
     } 
@@ -28,25 +28,38 @@ bool Customer::hasMovie(string title) {
 }
 
 bool Customer::borrowMovie(string title) {
-    for (int i = 0; i <= borrowedMovies.size(); i++) {
-        if (borrowedMovies[i] == title) {
+
+    for(int i = 0; i < history.size(); i++)
+    {
+        if(history[i].second == title)
+        {
             return false;
         }
     }
-    borrowedMovies.push_back(title);
+    history.push_back(make_pair('B', title));
     return true;
 }
 
 bool Customer::returnMovie(string title) {
-    for (int i = 0; i <= borrowedMovies.size(); i++) {
-        if (borrowedMovies[i] == title) {
-            borrowedMovies.erase(borrowedMovies.begin() + i - 1);
+    for(int i = 0; i < history.size(); i++)
+    {
+        if(history[i].second == title)
+        {
+            history.push_back(make_pair('R', title));
             return true;
         }
-    } 
+    }
     return false; 
 }
 
 string Customer::toCustomerString() const { 
     return to_string(customerID) + " " + lastName + " " + firstName;
+}
+
+void Customer::printHistory()
+{
+    for(int i = 0; i < history.size(); i++)
+    {
+        cout << history[i].first << " " << history[i].second << endl;
+    }
 }
