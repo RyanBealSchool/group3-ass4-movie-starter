@@ -3,6 +3,8 @@
 
 #include "movie.h"
 class Drama : public Movie {
+private:
+	void readObjFromStream(istream& stream); // read a drama from the stream
 public:
 	explicit Drama(int dramaStock = 0, string dramaDirector = "", string dramaTitle = "", int dramaYear = 0); //constructor
 
@@ -10,8 +12,6 @@ public:
 
 	bool operator<(const Drama& compDrama) const; //compare if this Drama is less than the passed in
 	bool operator==(const Drama& compDrama) const; //compare if this Drama is greater than the passed in
-private:
-	void readObjFromStream(istream& stream); // read a drama from the stream
 };
 
 #endif
