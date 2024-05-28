@@ -32,6 +32,13 @@ public:
 		return stock;
 	}
 
+	void incrementStock() {
+		stock++;	
+	}
+
+	void decrementStock() {
+		
+	}
 
 	virtual bool operator<(const Media& compMedia) const; //compare if this media is less than the passed in
 	virtual bool operator==(const Media& compMedia) const; //compare if this media is greater than the passed in

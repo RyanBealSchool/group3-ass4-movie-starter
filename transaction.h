@@ -17,6 +17,7 @@ private:
   string year;
   string actor;
   int id;
+  Media* m;
 public:
   //empty
   Transaction();
@@ -28,6 +29,20 @@ public:
   Transaction(string t, int id, string medt, string movt, int stock, string director, string title, int year);
   //borrow and return for classic
   Transaction(string t, int id, string medt, string movt, int stock, string director, string actor, int year, string c);
+
+  Transaction(string t, int id, string medt, string movt, Media* m) {
+    this->type = t;
+    this->id = id;
+    this->medt = medt;
+    this->movt = movt;
+    this->m = m;
+    this->title = m->getTitle();
+  }
+
+  Media* getMedia() {
+    return m;
+  }
+
   string getType();
   string getMediaType();
   string getMovieType();

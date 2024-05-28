@@ -47,7 +47,7 @@ vector<string> tokenize(string line) {
 	return tokens;    
 }
 
-string Commands::combineTokens(vector<string> tokens, int start)
+string Commands::combineTokens(vector<string> tokens, int &start)
 {
 	string returnValue;
 	while(start < tokens.size() && tokens[start-1].back() != ',') {
@@ -91,19 +91,29 @@ bool Commands::validTransaction(vector<string> tokens) {
     	cout << "Unsupported movie type: " << tokens[3] << endl;
     	return false;
   	}	
+
 	Media *media = nullptr;
   	if (tokens[3] == "D") {
-    	string director = combineTokens(tokens, 4);
-    	string title = combineTokens(tokens, 5);
+		int start = 4;
+    	string director = combineTokens(tokens, start);
+    	string title = tokens[start] + " ";
+		start++;
+		title += combineTokens(tokens, start);
+		director = " " + director.substr(0, director.length() - 2);
+		title = " " + title.substr(0, title.find_last_of(','));
     	media = new Drama(1, director, title, 0);
   	} else if (tokens[3] == "F") {
-    	string title = combineTokens(tokens, 4);
+		int start = 4;
+    	string title = combineTokens(tokens, start);
+		title = " " + title.substr(0, title.length() - 2);
     	int year = stoi(tokens.back());
     	media = new Comedy(1, "", title, year);
   	} else if (tokens[3] == "C") {
-    	string actor = combineTokens(tokens, 4);
+		int start = 6;
     	int month = stoi(tokens[4]);
     	int year = stoi(tokens[5]);
+    	string actor = combineTokens(tokens, start);
+		actor = actor.substr(0, actor.size() - 1);
     	media = new Classic(1, "", "", actor, month, year);
   	}
 
@@ -126,40 +136,41 @@ Transaction* Commands::createTransaction(vector<string> tokens) {
         return t;
     }
 
-	if (tokens[3] != "C") {
-		// non-classic borrow/return
-		string movieTitle;
-		Movie* m;
-		if (tokens[3] == "F") {
-			// it's a funny movie.
-			movieTitle = combineTokens(tokens, 4);
-		} else if (tokens[3] == "D") {
-			// it's a drama movie
-			int i = tokens.size() - 1;
-			movieTitle += tokens[i];
-			i--;
-			while (i >= 0 && tokens[i].back() != ',') {
-				string tmp = tokens[i] + " " + movieTitle;
-				movieTitle = tmp;
-				i--;
-			}
-		} else {
-			return nullptr;
-		}
-
-		// TODO uncomment this as well for it to work after finding things works as expected. 
-		// m = (Movie*) I.getMedia(movieTitle);
-		// Transaction* t = new Transaction(
-		// 	tokens[0], 
-		// 	stoi(tokens[1]), 
-		// 	tokens[2], 
-		// 	tokens[3],
-		// 	m->getStock(), 
-		// 	m->getDirector(),
-		// 	m->getTitle(),
-		// 	m->getYear());
-		return nullptr;
-	} 
+	Media *media = nullptr;
+	if (tokens[3] == "D") {
+		int start = 4;
+    	string director = combineTokens(tokens, start);
+    	string title = tokens[start] + " ";
+		start++;
+		title += combineTokens(tokens, start);
+		director = " " + director.substr(0, director.length() - 2);
+		title = " " + title.substr(0, title.find_last_of(','));
+    	media = new Drama(1, director, title, 0);		
+  	} else if (tokens[3] == "F") {
+		int start = 4;
+    	string title = combineTokens(tokens, start);
+		title = " " + title.substr(0, title.length() - 2);
+    	int year = stoi(tokens.back());
+    	media = new Comedy(1, "", title, year);
+  	} else if (tokens[3] == "C") {
+		int start = 6;
+    	int month = stoi(tokens[4]);
+    	int year = stoi(tokens[5]);
+    	string actor = combineTokens(tokens, start);
+		actor = actor.substr(0, actor.size() - 1);
+    	media = new Classic(1, "", "", actor, month, year);
+  	}
+	if (media) {
+		media = I.getMedia(media);
+		Transaction *t = new Transaction(
+			tokens[0], 
+			stoi(tokens[1]),
+			tokens[2],
+			tokens[3],
+			media
+		);
+		return t;
+	}
 
 	return nullptr;
 }
@@ -191,9 +202,6 @@ bool Commands::readCommandsFile() {
 			// line.erase(remove(line.begin(), line.end(), ','), line.end());
 			vector<string> tokens = tokenize(line);
 			if(validTransaction(tokens)) {
-				cout << "the following transaction is valid: " << endl;
-				printTokens(tokens);
-				// printTokens(tokens);
 				transactions.push_back(createTransaction(tokens));
 			} else {
 				cout << "invalid transaction: " << line << endl;
@@ -213,22 +221,22 @@ void Commands::excecute(Transaction* t)
 	}
 	else if(t->getType() == "H")
 	{
-		cout << "History:" << endl;
-		for(auto x : customers)
-		{
-			x.second->printHistory();
-		}
-		cout << endl;
+		cout << "Printing history for customerId = " << t->getId() << endl;
+		customers[t->getId()]->printHistory();
 	}
 	else if(t->getType() == "B")
 	{
-		customers.at(t->getId())->borrowMovie(t->getMovieTitle());
-		
-		//add borrowing from hashtable
+		if (I.borrowMedia(t->getMedia())) {
+			customers.at(t->getId())->borrowMovie(t->getMovieTitle());
+		} else {
+			cout << "error can not borrow this movie at the current time: " << t->getMovieTitle() << endl;
+		}
 	}
 	else if(t->getType() == "R")
 	{
+		I.returnMedia(t->getMedia());
 		customers.at(t->getId())->returnMovie(t->getMovieTitle());
+		
 		//add borrowing from hashtable
 	}
 	else

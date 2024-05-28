@@ -19,7 +19,7 @@ Inventory I;
 
 bool validTransaction(vector<string> tokens);
 Transaction* createTransaction(vector<string> tokens);
-string combineTokens(vector<string> tokens, int start);
+string combineTokens(vector<string> tokens, int& start);
 
 public:
   bool readMoviesFile();

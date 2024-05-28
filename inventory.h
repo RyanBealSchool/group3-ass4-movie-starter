@@ -26,5 +26,8 @@ public:
   int indexOfMedia(Media *m); // index of where media is stored in the hashtable
   void printCustomerList(); // prints out a list of all registered customers
   void printMediaList();    // prints out a list of all stored media
+
+  bool borrowMedia(Media* m);
+  bool returnMedia(Media* m);
 };
 #endif

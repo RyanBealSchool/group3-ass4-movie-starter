@@ -6,13 +6,11 @@ void Inventory::addMedia(Media *m) {
 }
 
 Media *Inventory::getMedia(Media *m) { 
-    //return hashTable.findMovie(m->toMediaString()); 
     string key = generateUniqueKey(m);
     return hashTable.findMovie(key);
 }
 
 bool Inventory::doesMediaExist(Media *m) {
-    //return hashTable.findMovie(m->toMediaString()) != nullptr;
     string key = generateUniqueKey(m);
     return hashTable.findMovie(key) != nullptr;
 }
@@ -33,4 +31,19 @@ void Inventory::printMediaList() {
 string Inventory::generateUniqueKey(Media *m) {
   string key = m->getMediaID();
   return key;
+}
+
+bool Inventory::borrowMedia(Media* m) {
+  // you can only borrow a movie if the stock > 0
+  if (m->getStock() > 0) {
+    m->decrementStock();
+    return true;
+  }
+  return false;
+}
+
+bool Inventory::returnMedia(Media* m) {
+  // returns are always welcome. 
+  m->incrementStock();
+  return true;
 }

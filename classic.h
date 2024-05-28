@@ -9,6 +9,14 @@ private:
 	int month;
 	
 public:
+	string getActor() {
+		return actor;
+	}
+
+	int getMonth() {
+		return month;
+	}
+	
 	explicit Classic(int classicStock = 0, string classicDirector = "", string classicTitle = "", string classicActor = "", int classicMonth = 0, int classicYear = 0); //constructor
 
 	string toMediaString() const; //returns a string formatted as a classic

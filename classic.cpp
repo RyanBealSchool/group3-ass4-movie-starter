@@ -46,4 +46,5 @@ void Classic::readObjFromStream(istream &stream) {
   this->actor =
       actorFirstName + " " + actorLastName; // combine first and last names
   stream >> month >> year;                  // read in the month and year
+  hashTableLookUpID = to_string(this->month) + to_string(this->year) + this->actor;
 }

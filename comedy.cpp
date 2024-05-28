@@ -39,5 +39,6 @@ void Comedy::readObjFromStream(istream& stream)
 	Movie::readObjFromStream(stream); 
 	//read in the year
 	stream >> year;
+	hashTableLookUpID = this->title + to_string(this->year);
 }
 

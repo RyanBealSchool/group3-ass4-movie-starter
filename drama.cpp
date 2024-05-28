@@ -35,5 +35,6 @@ void Drama::readObjFromStream(istream& stream)
 {
 	Movie::readObjFromStream(stream); //read in the stock, director, and title
 	stream >> year;//read in the year
+	hashTableLookUpID = this->director +this->title;
 }
 
