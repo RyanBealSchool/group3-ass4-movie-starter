@@ -1,30 +1,28 @@
 #include "inventory.h"
 
 void Inventory::addMedia(Media *m) {
-    Movie *movie = dynamic_cast<Movie*>(m);
-    if (movie) {
-        sortedMovies.push(*movie);
-    }
+  string key = generateUniqueKey(m);
+  hashTable.add(key, m);
+}
+
+Media *Inventory::getMedia(Media *m) { 
+    //return hashTable.findMovie(m->toMediaString()); 
     string key = generateUniqueKey(m);
-    hashTable.add(key, m);
+    return hashTable.findMovie(key);
 }
 
-Media *Inventory::getMedia(string title) { 
-    return hashTable.findMovie(title);
+bool Inventory::doesMediaExist(Media *m) {
+    //return hashTable.findMovie(m->toMediaString()) != nullptr;
+    string key = generateUniqueKey(m);
+    return hashTable.findMovie(key) != nullptr;
 }
 
-bool Inventory::doesMediaExist(string title) { 
-    return hashTable.findMovie(title) != nullptr;
-}
-
-int Inventory::indexOfMedia(string title) { 
-    return 0; 
-}
+int Inventory::indexOfMedia(Media *m) { return 0; }
 
 void Inventory::printCustomerList() {
-    for(int i = 0; i < customers.size(); i++) {
-        cout << customers[i].toCustomerString() << endl;
-    }
+  for (int i = 0; i < customers.size(); i++) {
+    cout << customers[i].toCustomerString() << endl;
+  }
 }
 
 void Inventory::printMediaList() { 
@@ -32,9 +30,7 @@ void Inventory::printMediaList() {
     hashTable.printAllMediaSorted();
 }
 
-string Inventory::generateUniqueKey(Media *m) { 
-    string key = m->toMediaString();
-    return key;
+string Inventory::generateUniqueKey(Media *m) {
+  string key = m->toMediaString();
+  return key;
 }
-
-
