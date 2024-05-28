@@ -31,6 +31,6 @@ void Inventory::printMediaList() {
 }
 
 string Inventory::generateUniqueKey(Media *m) {
-  string key = m->toMediaString();
+  string key = m->getMediaID();
   return key;
 }
