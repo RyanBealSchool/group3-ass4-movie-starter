@@ -3,6 +3,7 @@
 Drama::Drama(int dramaStock, string dramaDirector, string dramaTitle, int dramaYear)
 {
 	initalizeMovie('D', dramaStock, dramaDirector, dramaTitle, dramaYear); // initalize movie vars
+	hashTableLookUpID = this->director +this->title;
 }
 string Drama::toMediaString() const {
 	string result = Movie::toMediaString() + ", " + to_string(this->year); //format the drama as a string
