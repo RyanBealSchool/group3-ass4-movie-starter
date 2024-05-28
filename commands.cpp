@@ -73,12 +73,11 @@ bool Commands::validTransaction(vector<string> tokens) {
     	cout << "Invalid command code: " << tokens[0] << endl;
     	return false;
   	}
-
-  	if (customers.find(stoi(tokens[1])) == customers.end()) {
+	
+	if (customers.find(stoi(tokens[1])) == customers.end()) {
     	cout << "Customer with ID = " << tokens[1] << " does not exist" << endl;
     	return false;
   	}
-
   	if (tokens[0] == "H" && tokens.size() == 2) {
     	return true;
 	}
@@ -92,7 +91,6 @@ bool Commands::validTransaction(vector<string> tokens) {
     	cout << "Unsupported movie type: " << tokens[3] << endl;
     	return false;
   	}	
-
 	Media *media = nullptr;
   	if (tokens[3] == "D") {
     	string director = combineTokens(tokens, 4);
@@ -104,8 +102,8 @@ bool Commands::validTransaction(vector<string> tokens) {
     	media = new Comedy(0, "", title, year);
   	} else if (tokens[3] == "C") {
     	string actor = combineTokens(tokens, 4);
-    	int month = stoi(tokens[5]);
-    	int year = stoi(tokens[6]);
+    	int month = stoi(tokens[4]);
+    	int year = stoi(tokens[5]);
     	media = new Classic(0, "", "", actor, month, year);
   	}
 
@@ -114,7 +112,7 @@ bool Commands::validTransaction(vector<string> tokens) {
     	delete media;
     	return mediaExists;
   	}
-  return false;
+  	return false;
 }
 
 Transaction* Commands::createTransaction(vector<string> tokens) {
@@ -209,18 +207,26 @@ void Commands::excecute(Transaction* t)
 {
 	if(t->getType() == "I")
 	{
+		cout << "Inventory:" << endl;
 		I.printMediaList();
+		cout << endl;
 	}
 	else if(t->getType() == "H")
 	{
+		cout << "History:" << endl;
 		for(auto x : customers)
 		{
 			x.second->printHistory();
 		}
+		cout << endl;
 	}
 	else if(t->getType() == "B")
 	{
-		customers.at(t->getId())->borrowMovie(t->getMovieTitle());
+		if(customers.at(t->getId())->borrowMovie(t->getMovieTitle()))
+		{
+			
+		}
+		
 		//add borrowing from hashtable
 	}
 	else if(t->getType() == "R")
